@@ -15,3 +15,13 @@ The initial functionality is to allow meshtastic devices to be used as trackers 
 ## Node Red flow
 
 ![flow](https://github.com/erichexter/Mestastic-Tak-Bridge/assets/114692/c8283f86-ee1b-43cc-b475-cd4f45ab362a)
+
+
+## Mapping
+
+| Meshtastic | ATAK | example |
+| ---------  | ---- | ------- |
+| Long Name | Callsign | meshtastic e9f3 |
+| 1st char of short name | Team Role | **M**Y02 = Team **M**ember |
+| 2nd char of short name | Team Color | M**Y**02 = **Y**ellow |
+| Battery level | Battery Level | |
