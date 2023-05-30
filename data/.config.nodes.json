@@ -416,26 +416,6 @@
             }
         }
     },
-    "node-red-contrib-tak": {
-        "name": "node-red-contrib-tak",
-        "version": "4.0.1",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "tak": {
-                "name": "tak",
-                "types": [
-                    "tak",
-                    "tak2wm"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-tak",
-                "file": "/data/node_modules/node-red-contrib-tak/tak/tak.js"
-            }
-        }
-    },
     "node-red-contrib-cache": {
         "name": "node-red-contrib-cache",
         "version": "2.0.3",
@@ -495,6 +475,26 @@
                 "user": false,
                 "module": "node-red-contrib-protobuf",
                 "file": "/data/node_modules/node-red-contrib-protobuf/src/nodes/protofile.js"
+            }
+        }
+    },
+    "node-red-contrib-tak": {
+        "name": "node-red-contrib-tak",
+        "version": "4.0.1",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "tak": {
+                "name": "tak",
+                "types": [
+                    "tak",
+                    "tak2wm"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-tak",
+                "file": "/data/node_modules/node-red-contrib-tak/tak/tak.js"
             }
         }
     }
