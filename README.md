@@ -25,3 +25,10 @@ The initial functionality is to allow meshtastic devices to be used as trackers 
 | 1st char of short name | Team Role | **M**Y02 = Team **M**ember |
 | 2nd char of short name | Team Color | M**Y**02 = **Y**ellow |
 | Battery level | Battery Level | |
+
+## Install
+
+This solution is designed to run in docker utilizing docker compose.  It is setup to work out of the box to connect to a local tak server runing on the same machine.
+
+To start run the following command run.ps1 or run.sh 
+
