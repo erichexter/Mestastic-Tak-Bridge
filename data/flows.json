@@ -1,0 +1,530 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Meshtastic to TAK Server",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "dc1576c60d82becf",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e2fed6650038398f",
+        "type": "mqtt-broker",
+        "name": "localhost",
+        "broker": "host.docker.internal",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "e85c59a78618517b",
+        "type": "protobuf-file",
+        "protopath": "/usr/src/node-red/protobufs/meshtastic/mqtt.proto,/usr/src/node-red/protobufs/meshtastic/mesh.proto,/usr/src/node-red/protobufs/meshtastic/portnums.proto,/usr/src/node-red/protobufs/meshtastic/clientonly.proto,/usr/src/node-red/protobufs/meshtastic/telemetry.proto",
+        "watchFile": true,
+        "keepCase": false
+    },
+    {
+        "id": "92daf74705394b75",
+        "type": "protobuf-file",
+        "protopath": "/usr/src/node-red/protobufs/meshtastic/mesh.proto",
+        "watchFile": true,
+        "keepCase": false
+    },
+    {
+        "id": "58ef6075616940e8",
+        "type": "Cache",
+        "z": "f6f2187d.f17ca8",
+        "name": "Nodes",
+        "defaultTtl": "",
+        "checkPeriod": ""
+    },
+    {
+        "id": "8a97979f893ae252",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "tak user cert.pem",
+        "keyname": "tak user cert.key",
+        "caname": "ca.pem",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    },
+    {
+        "id": "314485ea514fb4fe",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "meshtastic",
+        "topic": "msh/+/c/#",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e2fed6650038398f",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "01b9849d43ebf3c4"
+            ]
+        ]
+    },
+    {
+        "id": "01b9849d43ebf3c4",
+        "type": "decode",
+        "z": "f6f2187d.f17ca8",
+        "name": "meshtastic proto",
+        "protofile": "e85c59a78618517b",
+        "protoType": "ServiceEnvelope",
+        "x": 320,
+        "y": 60,
+        "wires": [
+            [
+                "c8f63dbbc576a480",
+                "4f536a9b42550d73"
+            ]
+        ]
+    },
+    {
+        "id": "2e2d2214db001c0d",
+        "type": "decode",
+        "z": "f6f2187d.f17ca8",
+        "name": "Decode Postion",
+        "protofile": "92daf74705394b75",
+        "protoType": "Position",
+        "x": 340,
+        "y": 300,
+        "wires": [
+            [
+                "c91ece4354f07cb6"
+            ]
+        ]
+    },
+    {
+        "id": "74c7e15a36c16462",
+        "type": "decode",
+        "z": "f6f2187d.f17ca8",
+        "name": "Decode User",
+        "protofile": "e85c59a78618517b",
+        "protoType": "User",
+        "x": 330,
+        "y": 420,
+        "wires": [
+            [
+                "de893f9f18e8319c"
+            ]
+        ]
+    },
+    {
+        "id": "08da46b41a9016b9",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "portnum",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "POSITION_APP",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "TELEMETRY_APP",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "NODEINFO_APP",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 170,
+        "y": 360,
+        "wires": [
+            [
+                "2e2d2214db001c0d"
+            ],
+            [
+                "d24a4b5a5c8ec73f"
+            ],
+            [
+                "74c7e15a36c16462"
+            ]
+        ]
+    },
+    {
+        "id": "d24a4b5a5c8ec73f",
+        "type": "decode",
+        "z": "f6f2187d.f17ca8",
+        "name": "Decode Telemetry",
+        "protofile": "e85c59a78618517b",
+        "protoType": "Telemetry",
+        "x": 330,
+        "y": 360,
+        "wires": [
+            [
+                "740c74693e082446"
+            ]
+        ]
+    },
+    {
+        "id": "c8f63dbbc576a480",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Set Portnum on message",
+        "func": "msg.portnum = msg.payload.packet.decoded.portnum;\nmsg.client = msg.payload.packet.from;\nmsg.node=new Object();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 60,
+        "wires": [
+            [
+                "ba80a14222784904"
+            ]
+        ]
+    },
+    {
+        "id": "977697356d3e8718",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Move nested payload to root payload",
+        "func": "msg.node= msg.node??  {user:{longName:msg.client},position:{latitudeI:0,longitudeI:0},telemetry:{}};\nif(msg.node.user==null)\n{\n    msg.node.user={longName:msg.client};\n}\n\nmsg.payload = msg.payload.packet.decoded.payload;\nlet bufferObj = Buffer.from(msg.payload, \"base64\");\n//let decodedString = bufferObj.toString(\\\"hex\\\");\nmsg.payload = bufferObj;\nmsg.topic=\"\";\n//if you don't zero out the protubufTopic it will try to\n//decode it as part of the mqtt service envelope instead\n//of two-stage decoding\nmsg.protobufType=null;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 60,
+        "wires": [
+            [
+                "08da46b41a9016b9"
+            ]
+        ]
+    },
+    {
+        "id": "4b0db558e6d92e45",
+        "type": "tak",
+        "z": "f6f2187d.f17ca8",
+        "name": "TAK",
+        "x": 1310,
+        "y": 300,
+        "wires": [
+            [
+                "b3f757e553708578"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e1f85c9a9070df05",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Create COT Message",
+        "func": "\n\nif(msg.node.user==null){\n    msg.node.user={longName:\"unknown\"};\n}\n\nif(msg.node.position==null){\n    msg.node.position={latitudeI:99999999.0,longitudeI:999999999.0};\n}\nvar uid = msg.client ?? msg.payload;\nvar shortname=msg.node.user.shortName;\nvar role=\"Team Member\";\nvar team=\"Cyan\";\nvar callsign = msg.node.user.longName;\n\nvar teamLetter = shortname.charAt(1);\nswitch(teamLetter){\n    case \"O\":\n    case \"o\":\n        team=\"Orange\";\n        break;\n    case \"Y\":\n    case \"y\":\n        team=\"Yellow\";\n        break;\n    case \"B\":\n    case \"b\":\n        team=\"Blue\";\n        break;\n    case \"G\":\n        team=\"Green\";\n        break;\n    \n}\n\nswitch(shortname.charAt(0)){\n    case \"L\":\n        role=\"Team Lead\";\n        break;\n    case \"R\":\n        role=\"RTO\";\n        break;\n    case \"H\":\n        role=\"HQ\";\n        break;\n    case \"S\":\n        role=\"Sniper\";\n        break;\n    case \"D\":\n        role=\"Medic\";\n        break;\n}\n\n const stale = new Date(Date.now() + 15 * 60 * 1000).toISOString();\n \n /*\\nNot all fields are required for display on most TAK Products, other systems may \\nhave different requirements. YMMV.\n */\nvar lat = msg.node.position.latitudeI / 10000000 ;\nvar long = msg.node.position.longitudeI / 10000000;\n//<uid Droid=\"Blackout -  HEX\" />\nvar oldpayload = msg.payload;\nmsg.payload = {\n    \"event\": {\n    \"_attributes\": {\n        \"version\": \"2.0\",\n        \"uid\": uid,\n            \"type\": \"a-f-G-E-V-C\",\n         \"how\": \"m-G\",\n         \"time\": new Date(Date.now()).toISOString(),\n         \"start\": new Date(Date.now()).toISOString(),\n         \"stale\": stale\n    },\n    \"point\": {\n        \"_attributes\": {\n            \"lat\": lat,\n            \"lon\": long ,\n            \"hae\": \"0.0\",\n            \"ce\": \"9999999.0\",\n            \"le\": \"9999999.0\"\n        }\n    },\n    \"detail\": {\n        \"contact\":{\n        \"_attributes\":{\n            \"callsign\": callsign\n        }\n            \n        },\n        \"__group\": {\n            \"_attributes\": {\n                \"role\": role,\n                \"name\": team\n            }\n        },\n         \"status\": \n             {\n             \"_attributes\": \n                 {\n                  \"battery\": msg.node?.telemetry?.deviceMetrics?.batteryLevel ?? 99\n                 }\n             }        \n        ,\n         \"takv\":\n         {\n             \"_attributes\":\n             {\n                 \"device\": msg.node.user?.hwModel ?? \"unknown\",\n                 \"platform\": \"Meshtastic Bridge\",\n                 \"version\": \"1.0\"\n             }\n         },\n         \"uid\":{\n             \"_attributes\":{\n                 \"Droid\":callsign\n             }\n         }\n    }\n}};\n\nreturn msg;\n\n\n// <status battery=\"26\"/>\n// <takv device=\"iPhone\" platform=\"iTAK\" os=\"16.4.1\" version=\"2.5.0.604\"/>\n\n//node.telemetry.deviceMetrics.batteryLevel\n//node.user.hwModel",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 300,
+        "wires": [
+            [
+                "4b0db558e6d92e45"
+            ]
+        ]
+    },
+    {
+        "id": "6d289c764e2feb96",
+        "type": "Cache out",
+        "z": "f6f2187d.f17ca8",
+        "name": "Store node",
+        "cache": "58ef6075616940e8",
+        "keyType": "msg",
+        "keyProperty": "client",
+        "valueType": "msg",
+        "valueProperty": "node",
+        "ttlType": "msg",
+        "ttlProperty": "",
+        "useString": false,
+        "x": 850,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "ba80a14222784904",
+        "type": "Cache in",
+        "z": "f6f2187d.f17ca8",
+        "name": "Get Node",
+        "cache": "58ef6075616940e8",
+        "keyType": "msg",
+        "keyProperty": "client",
+        "valueType": "msg",
+        "valueProperty": "node",
+        "useString": false,
+        "outputs": 1,
+        "x": 760,
+        "y": 60,
+        "wires": [
+            [
+                "977697356d3e8718"
+            ]
+        ]
+    },
+    {
+        "id": "b3f757e553708578",
+        "type": "tcp out",
+        "z": "f6f2187d.f17ca8",
+        "name": "To Atak",
+        "host": "[tak server FQDN]",
+        "port": "8089",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "tls": "8a97979f893ae252",
+        "x": 1480,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "decafb3a03b4b8b2",
+        "type": "tcp in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "server": "client",
+        "host": "[tak server FQDN]",
+        "port": "8089",
+        "datamode": "stream",
+        "datatype": "buffer",
+        "newline": "",
+        "topic": "",
+        "trim": false,
+        "base64": false,
+        "tls": "8a97979f893ae252",
+        "x": 370,
+        "y": 640,
+        "wires": [
+            [
+                "23aac270aa1d8f02"
+            ]
+        ]
+    },
+    {
+        "id": "23aac270aa1d8f02",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "818b56453f58f869",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Every Minute",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 340,
+        "y": 560,
+        "wires": [
+            [
+                "7c91ae6af8adbec2"
+            ]
+        ]
+    },
+    {
+        "id": "4f536a9b42550d73",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Store Node Index",
+        "func": "var client = msg.payload.packet.from;\nvar clients=global.get(\"clients\")??new Array();\nif(clients.indexOf(client)<0){\n    clients.push(client);\n    global.set(\"clients\",clients);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set(\"clients\", new Array());",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7c91ae6af8adbec2",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "get node list",
+        "func": "msg.payload= global.get(\"clients\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 560,
+        "wires": [
+            [
+                "3c1be3812c3ae5a3"
+            ]
+        ]
+    },
+    {
+        "id": "3c1be3812c3ae5a3",
+        "type": "split",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 770,
+        "y": 560,
+        "wires": [
+            [
+                "4c1efac7c388ec13"
+            ]
+        ]
+    },
+    {
+        "id": "de893f9f18e8319c",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "update user on node",
+        "func": "msg.node.user=msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 420,
+        "wires": [
+            [
+                "6d289c764e2feb96"
+            ]
+        ]
+    },
+    {
+        "id": "740c74693e082446",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "update telemetry on node",
+        "func": "msg.node.telemetry = msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 360,
+        "wires": [
+            [
+                "6d289c764e2feb96"
+            ]
+        ]
+    },
+    {
+        "id": "c91ece4354f07cb6",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "update postion on node",
+        "func": "if(msg.payload.latitudeI!=null)\n    msg.node.position = msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 300,
+        "wires": [
+            [
+                "6d289c764e2feb96",
+                "e1f85c9a9070df05"
+            ]
+        ]
+    },
+    {
+        "id": "4c1efac7c388ec13",
+        "type": "Cache in",
+        "z": "f6f2187d.f17ca8",
+        "name": "Get Node",
+        "cache": "58ef6075616940e8",
+        "keyType": "msg",
+        "keyProperty": "payload",
+        "valueType": "msg",
+        "valueProperty": "node",
+        "useString": false,
+        "outputs": 1,
+        "x": 920,
+        "y": 560,
+        "wires": [
+            [
+                "e1f85c9a9070df05",
+                "23aac270aa1d8f02"
+            ]
+        ]
+    }
+]
