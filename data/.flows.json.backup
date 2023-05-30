@@ -49,13 +49,6 @@
         "keepCase": false
     },
     {
-        "id": "92daf74705394b75",
-        "type": "protobuf-file",
-        "protopath": "/usr/src/node-red/protobufs/meshtastic/mesh.proto",
-        "watchFile": true,
-        "keepCase": false
-    },
-    {
         "id": "58ef6075616940e8",
         "type": "Cache",
         "z": "f6f2187d.f17ca8",
