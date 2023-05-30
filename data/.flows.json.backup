@@ -314,7 +314,7 @@
         "type": "tcp out",
         "z": "f6f2187d.f17ca8",
         "name": "To Atak",
-        "host": "localhost",
+        "host": "[tak server FQDN]",
         "port": "8089",
         "beserver": "client",
         "base64": false,
@@ -330,7 +330,7 @@
         "z": "f6f2187d.f17ca8",
         "name": "",
         "server": "client",
-        "host": "localhost",
+        "host": "[tak server FQDN]",
         "port": "8089",
         "datamode": "stream",
         "datatype": "buffer",
@@ -339,7 +339,7 @@
         "trim": false,
         "base64": false,
         "tls": "8a97979f893ae252",
-        "x": 350,
+        "x": 370,
         "y": 640,
         "wires": [
             [
