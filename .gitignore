@@ -398,7 +398,6 @@ FodyWeavers.xsd
 *.sln.iml
 
 
-protobufs/
 data/.npm/
 data/node_modules/
 data/package-log.js
