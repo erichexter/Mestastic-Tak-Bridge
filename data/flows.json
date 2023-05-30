@@ -44,14 +44,7 @@
     {
         "id": "e85c59a78618517b",
         "type": "protobuf-file",
-        "protopath": "/usr/src/node-red/protobufs/meshtastic/mqtt.proto,/usr/src/node-red/protobufs/meshtastic/mesh.proto,/usr/src/node-red/protobufs/meshtastic/portnums.proto,/usr/src/node-red/protobufs/meshtastic/clientonly.proto,/usr/src/node-red/protobufs/meshtastic/telemetry.proto",
-        "watchFile": true,
-        "keepCase": false
-    },
-    {
-        "id": "92daf74705394b75",
-        "type": "protobuf-file",
-        "protopath": "/usr/src/node-red/protobufs/meshtastic/mesh.proto",
+        "protopath": "/data/protobufs/meshtastic/mqtt.proto,/data/protobufs/meshtastic/mesh.proto,/data/protobufs/meshtastic/portnums.proto,/data/protobufs/meshtastic/clientonly.proto,/data/protobufs/meshtastic/telemetry.proto",
         "watchFile": true,
         "keepCase": false
     },
@@ -119,7 +112,7 @@
         "type": "decode",
         "z": "f6f2187d.f17ca8",
         "name": "Decode Postion",
-        "protofile": "92daf74705394b75",
+        "protofile": "e85c59a78618517b",
         "protoType": "Position",
         "x": 340,
         "y": 300,
