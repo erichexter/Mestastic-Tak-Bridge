@@ -1,0 +1,23 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2      
+    volumes:
+      - ./mosquitto/data:/mosquitto/data/
+      - ./mosquitto/config:/mosquitto/config/
+      - ./mosquitto/logs:/mosquitto/logs/
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    networks:
+      - node-red-net
+  node-red:
+    image: nodered/node-red:latest
+    ports:
+      - "1880:1880"
+    networks:
+      - node-red-net
+    volumes:
+      - ./data:/data    
+networks:
+    node-red-net:
+        driver: bridge
