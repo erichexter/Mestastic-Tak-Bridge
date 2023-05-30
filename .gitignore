@@ -401,3 +401,4 @@ FodyWeavers.xsd
 data/.npm/
 data/node_modules/
 data/package-log.js
+mosquitto/data/mosquitto.db
