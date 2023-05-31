@@ -1,5 +1,5 @@
 # Mestastic-Tak-Bridge
-Network communication to show [meshtastic](https://meshtastic.org/) devices in TAK / ATAK ecosystem.  Utilizes MQTT and Nodered
+Network communication to show [meshtastic](https://meshtastic.org/) devices in [ATAK](https://www.civtak.org/atak-about/) ecosystem.  Utilizes MQTT and Nodered
 
 This project implements the servers and protocol translation so that a network of meshtastic devices can be displayed in ATAK system.
 
