@@ -10,6 +10,7 @@ services:
       - "9001:9001"
     networks:
       - node-red-net
+    restart: always
   node-red:
     image: nodered/node-red:latest
     ports:
@@ -18,6 +19,7 @@ services:
       - node-red-net
     volumes:
       - ./data:/data    
+    restart: always
 networks:
     node-red-net:
         driver: bridge
